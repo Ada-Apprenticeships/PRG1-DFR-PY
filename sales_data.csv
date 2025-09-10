@@ -1,0 +1,7 @@
+date,region,product,quantity,unit_price,total_sales,status
+2024-01-15,North,Laptop,5,999.99,4999.95,completed
+2024-01-15,South,Phone,10,499.99,4999.90,completed
+2024-01-16,North,Tablet,3,699.99,2099.97,pending
+2024-01-16,East,Laptop,7,999.99,6999.93,completed
+2024-01-17,West,Phone,4,499.99,1999.96,completed
+2024-01-17,South,Tablet,6,699.99,4199.94,cancelled
