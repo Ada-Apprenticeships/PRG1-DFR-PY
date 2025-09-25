@@ -1,0 +1,7 @@
+{
+    "customizations": {
+    "vscode": {
+      "extensions": ["-github.copilot-chat"]
+    }
+  }
+}
