@@ -1,7 +1,13 @@
 {
     "customizations": {
-    "vscode": {
-      "extensions": ["-github.copilot-chat"]
+        "vscode": {
+            "extensions": [
+                "-github.copilot",
+                "-github.copilot-chat",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.vscode-python-envs"
+            ]
+        }
     }
-  }
 }
