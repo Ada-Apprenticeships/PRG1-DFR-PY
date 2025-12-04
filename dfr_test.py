@@ -43,6 +43,7 @@ def test_valid_number01():
     for number in invalid_cases:
         assert valid_number(number) == False
 
+
 def test_data_dimensions02():
     """Tests for the data_dimensions function"""
     # Should return correct dimensions for 2D array
@@ -61,6 +62,7 @@ def test_data_dimensions02():
     assert data_dimensions("") == None
     assert data_dimensions(None) == None
 
+
 def test_find_total03():
     """Tests for the find_total function"""
     # Should calculate correct sum for valid datasets
@@ -76,6 +78,7 @@ def test_find_total03():
     mixed_data = [1500.5, 1900.25, "invalid", 1750.75]
     assert find_total(mixed_data) == 5151.5  # Should skip invalid value
 
+
 def test_calculate_mean04():
     """Tests for the calculate_mean function"""
     # Should calculate correct average for valid datasets
@@ -90,6 +93,7 @@ def test_calculate_mean04():
     assert calculate_mean([[20.5, 21.0]]) == None
     mixed_data = [20.5, 21.0, "invalid", 19.8, 20.2]
     assert calculate_mean(mixed_data) == 20.375  # Should skip invalid value
+
 
 def test_calculate_median05():
     """Tests for the calculate_median function"""
@@ -107,6 +111,7 @@ def test_calculate_median05():
     assert calculate_median([]) == None
     mixed_dataset = [10, 20, "30", "invalid", 40, 50]
     assert calculate_median(mixed_dataset) == 30.0
+
 
 def test_convert_to_number06():
     """Tests for the convert_to_number function"""
@@ -130,11 +135,19 @@ def test_convert_to_number06():
     ]
     assert convert_to_number(mixed_data, 1) == 1  # Should only convert valid numbers
 
+
 def test_flatten07():
-    """Tests for the flatten function"""
+    """Tests for the flatten function and checks for non-destructive operation."""
     # Should convert single-column 2D List to 1D List
     monthly_temperatures = [[20.5], [21.0], [22.5], [19.8], [20.2]]
-    assert flatten(monthly_temperatures) == [20.5, 21.0, 22.5, 19.8, 20.2]
+    # Store a deep copy of the original data to ensure immutability
+    original_data_copy = [row[:] for row in monthly_temperatures] 
+    
+    result = flatten(monthly_temperatures)
+    
+    assert result == [20.5, 21.0, 22.5, 19.8, 20.2]
+    # Check if the original data structure was not mutated
+    assert monthly_temperatures == original_data_copy 
     
     # Handles invalid data structures (1D list or multi-column 2D list)
     multi_column_data = [20.5, 21.0, 22.5]
@@ -146,6 +159,7 @@ def test_flatten07():
         [25.1, 42]
     ]
     assert flatten(invalid_data) == None
+
 
 def test_create_slice08():
     """Tests for the create_slice function"""
@@ -162,7 +176,7 @@ def test_create_slice08():
         ["North", 2000]
     ]
     
-    # Should handle wildcard selections (excludes header row)
+    # Should handle wildcard selections (includes header row)
     wildcard_data = [
         ["date", "region", "product", "sales"],
         ["2024-01", "North", "Laptop", 1000],
@@ -176,13 +190,22 @@ def test_create_slice08():
         ["South", 1500]
     ]
 
+
 def test_load_csv09():
-    """Tests for the load_csv function"""
+    """Tests for the load_csv function and checks for non-destructive editing of parameters."""
+    # Define mutable inputs
+    ignore_rows_list = [0]
+    ignore_cols_list = []
+    
+    # Store copies to check against later
+    original_ignore_rows = ignore_rows_list[:]
+    original_ignore_cols = ignore_cols_list[:]
+    
     # Should correctly load and process CSV files
     sales_data, total_rows, total_columns = load_csv(
         "./sales_data.csv",
-        [0],
-        []
+        ignore_rows_list, # Use the mutable input list
+        ignore_cols_list
     )
     
     assert total_rows == 7
@@ -197,11 +220,16 @@ def test_load_csv09():
         "completed"
     ]
     
+    # Check if input parameters were not mutated
+    assert ignore_rows_list == original_ignore_rows
+    assert ignore_cols_list == original_ignore_cols
+
     # Handles nonexistent file paths
     empty_data, rows, cols = load_csv("./nonexistent.csv")
     assert empty_data == None
     assert rows == None
     assert cols == None
+
 
 def test_integration10():
     """Integration tests combining multiple functions"""
