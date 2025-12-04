@@ -1,10 +1,6 @@
 import os
 import re
 
-
-def file_exists(filename):
-    return os.path.exists(filename)
-
 def valid_number(value):
     pass
 
