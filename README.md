@@ -33,6 +33,10 @@ temperatures = [23.5, 25.1, 24.8, 26.2]
 temperatures[0]  # → 23.5 (First temperature)
 temperatures[3]  # → 26.2 (Fourth temperature)
 ```
+<details>
+
+<summary>Core Functions</summary>
+
 
 ## Core Functions
 
@@ -105,6 +109,7 @@ calculate_median(even_dataset)  # → 2.5 (average of 2 and 3)
 invalid_data = [[1], [2]]  # 2D list instead of 1D List
 calculate_median(invalid_data)  # → None
 ```
+</details>
 
 ### Convert To Number (convert_to_number)
 
