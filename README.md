@@ -53,7 +53,7 @@ valid_number("three")    # → False (not a number)
 
 ### Data Dimensions (data_dimensions)
 
-Returns the dimensions [rows, columns] of a 2D List or 1D List. Returns None if the input is not a recognized data structure.
+Returns the dimensions [rows, columns] of a 2D List or 1D List. Returns `None` if the input is not 1D or 2D list.
 
 ```python
 sales_data = [
@@ -63,13 +63,13 @@ sales_data = [
 ]
 
 data_dimensions(sales_data)      # → [3, 4] (3 rows, 4 columns)
-data_dimensions([1000, 1100])    # → [2, 1] (1D List with 2 elements, treated as 1 column)
+data_dimensions([1000, 1100])    # → [1, 2] (1 row, 2 columns)
 data_dimensions(None)            # → None (No data / Invalid input)
 ```
 
 ### Find Total (find_total)
 
-Sums all valid numbers in a 1D List. Returns None for invalid dimensions.
+Sums all valid numbers in a 1D List. Returns `None` for anything other than a 1D List.
 
 ```python
 monthly_revenue = [1500.5, 1900.25, "2000.00", 1750.75, "pending"]
@@ -138,14 +138,14 @@ convert_to_number(traffic_data, 2)  # → 2 (converted '2.5' and '1.8' to number
 
 ### Flatten 2D List (flatten)
 
-Converts a single-column 2D List into a 1D List. Only works on 2D Lists with exactly one column. Returns None for invalid inputs.
+Converts a single-column 2D List into a 1D List. Only works on 2D Lists with exactly one column. Returns `None` for invalid inputs.
 
 ```python
 temperatures = [[23.5], [25.1], [24.8]]
 
 flatten(temperatures)  # → [23.5, 25.1, 24.8]
 data_dimensions(temperatures)  # → [3, 1]
-data_dimensions(flatten(temperatures))  # → [3, 1]
+data_dimensions(flatten(temperatures))  # → [1, 3]
 
 # Won't flatten multi-column 2D Lists
 invalid_data = [
