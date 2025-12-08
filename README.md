@@ -298,8 +298,8 @@ create_slice(two_d_list, column_index, pattern, export_columns=[])
 **3. pattern**
 
 - The value to match in the specified column
-- Special case: `'*'` matches any value (includes all rows)
-- Case-sensitive for string matches
+- The wildcard * pattern includes ALL rows in the 2D list, including any header rows.
+- Case-sensitive for string matches (('SALE' ≠ 'sale'))
 
 **4. export_columns** (optional)
 
@@ -336,6 +336,7 @@ create_slice(sales_data, 0, "north")
 create_slice(sales_data, 0, "*", [1, 2])
 # Returns:
 # [
+#   ['product', 'sales'],  # Header row is included with wildcard
 #   ['laptop', 1000],
 #   ['phone',  500],
 #   ['tablet', 750],
