@@ -136,6 +136,42 @@ convert_to_number(traffic_data, 2)  # → 2 (converted '2.5' and '1.8' to number
 # ]
 ```
 
+#### Edge Cases and Error Handling
+
+**Invalid column index:**
+- If `col` is out of range (negative or >= number of columns), returns `0`
+- No modifications are made to the dataframe
+
+**Empty or invalid dataframe:**
+- If `dataframe` is `None`, empty `[]`, or not a 2D list, returns `0`
+- No error is raised
+
+**Mixed data in column:**
+- Only valid string numbers are converted (using `valid_number` check)
+- Invalid values remain unchanged
+- Return count reflects only successful conversions
+```python
+# Example: Out of range column
+data = [["A", "B"], ["1", "2"]]
+convert_to_number(data, 5)  # → 0 (column 5 doesn't exist)
+
+# Example: Invalid dataframe
+convert_to_number(None, 0)  # → 0
+convert_to_number([], 0)    # → 0
+
+# Example: Mixed valid/invalid data
+mixed = [["val"], 
+         ["10"], 
+         ["abc"], 
+         ["20"]]
+convert_to_number(mixed, 0)  # → 2 (converted "10" and "20", skipped "abc")
+
+```
+**Return Value:**
+- Returns the count of successfully converted values (integer)
+- Returns `0` if no conversions were made or if inputs are invalid
+
+
 ### Flatten 2D List (flatten)
 
 Converts a single-column 2D List into a 1D List. Only works on 2D Lists with exactly one column. Returns `None` for invalid inputs.
