@@ -148,6 +148,48 @@ def test_convert_to_number06():
     ]
     assert convert_to_number(mixed_data, 1) == 1, "Should only convert valid numbers (expected count 1)."
 
+    # Test: Mixed valid/invalid data in column
+    mixed = [
+    ["header"],
+    ["10"],
+    ["abc"],
+    ["20.5"],
+    [""],
+    ["30"]
+    ]
+    count = convert_to_number(mixed, 0)
+    assert count == 3, f"Should convert 3 valid numbers, got {count}."
+    assert mixed[1][0] == 10, "Should convert '10' to number."
+    assert mixed[2][0] == "abc", "Should leave 'abc' unchanged."
+    assert mixed[3][0] == 20.5, "Should convert '20.5' to number."
+    assert mixed[4][0] == "", "Should leave empty string unchanged."
+    assert mixed[5][0] == 30, "Should convert '30' to number."
+
+    # Test: Out of range column index (positive)
+    data = [["A", "B"], 
+            ["1", "2"], 
+            ["3", "4"]]
+    
+    assert convert_to_number(data, 5) == 0, "Should return 0 for out of range column index."
+    assert data == [["A", "B"], ["1", "2"], ["3", "4"]], "Should not modify data when column is out of range."
+    
+    # Test: Out of range column index (negative)
+    data = [["A", "B"], ["1", "2"]]
+    assert convert_to_number(data, -1) == 0, "Should return 0 for negative column index."
+    
+    # Test: None dataframe
+    assert convert_to_number(None, 0) == 0, "Should return 0 for None dataframe."
+    
+    # Test: Empty dataframe
+    assert convert_to_number([], 0) == 0, "Should return 0 for empty dataframe."
+    
+    # Test: 1D list instead of 2D (invalid structure)
+    assert convert_to_number([1, 2, 3], 0) == 0, "Should return 0 for 1D list (expects 2D)."
+    
+    # Test: Empty 2D list (has structure but no rows)
+    assert convert_to_number([[]], 0) == 0, "Should return 0 for 2D list with no data rows."
+  
+
 
 def test_flatten07():
     """Tests for the flatten function and checks for non-destructive operation."""
