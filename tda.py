@@ -22,7 +22,11 @@ def flatten(dataframe):
     pass
 
 def load_csv(csv_file, ignore_rows=None, ignore_cols=None):
-    pass
+    if ignore_rows is None:
+        ignore_rows = []
+    if ignore_cols is None:
+        ignore_cols = []
+    # ... rest of implementation
 
 def create_slice(dataframe, column_index, pattern, export_columns=None):
     pass
